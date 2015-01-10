@@ -1,0 +1,6 @@
+#Gradle编译生成的文件
+build/
+.gradle/
+#IDEA生成的文件
+.idea/
+

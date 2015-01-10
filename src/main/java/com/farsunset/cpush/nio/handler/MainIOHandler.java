@@ -10,6 +10,8 @@ import com.farsunset.cpush.nio.session.CIMSession;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -22,10 +24,9 @@ import java.util.concurrent.Executors;
  */
 public class MainIOHandler extends SimpleChannelUpstreamHandler {
 
-//	protected final Logger logger = Logger.getLogger(MainIOHandler.class);
+	protected final  Logger logger = LoggerFactory.getLogger(MainIOHandler.class);
 
 	private HashMap<String, CIMRequestHandler> handlers = new HashMap<String, CIMRequestHandler>();
-
 
 	private int port;
 	
@@ -46,19 +47,19 @@ public class MainIOHandler extends SimpleChannelUpstreamHandler {
                         new ServerMessageDecoder(),
                         new ServerMessageEncoder(),
                         MainIOHandler.this);
-               
+
             }  
   
         });  
           
         bootstrap.bind(new InetSocketAddress(port));  
-//        logger.warn("netty 启动成功" + port);
+        logger.warn("netty 启动成功" + port);
 
 	}
 	 
 	public void  channelConnected(ChannelHandlerContext ctx, ChannelStateEvent event) 
 	{
-//		logger.warn("sessionCreated()... from "+ctx.getChannel().getRemoteAddress().toString());
+		logger.warn("sessionCreated()... from "+ctx.getChannel().getRemoteAddress().toString());
 	}
 
 	 
@@ -66,7 +67,7 @@ public class MainIOHandler extends SimpleChannelUpstreamHandler {
 	 
 	 public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)  
 			throws Exception {
-//		logger.debug("message: " + e.getMessage().toString());
+		logger.debug("message: " + e.getMessage().toString());
 
 		
 		/**
@@ -95,7 +96,7 @@ public class MainIOHandler extends SimpleChannelUpstreamHandler {
         {
         	reply.setKey(key);
         	cimSession.write(reply);
-//    		logger.debug("-----------------------process done. reply: " + reply.toString());
+    		logger.debug("-----------------------process done. reply: " + reply.toString());
         }
         
         //设置心跳时间 
