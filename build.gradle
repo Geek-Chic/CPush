@@ -66,13 +66,7 @@ sourceSets {
 
 test {
     useTestNG() {
-        suiteXmlBuilder().suite(name: 'pushcore', parallel: 'tests') {
-            test (name : 'all-tests') {
-                packages {
-                    'package' (name: 'com.farsunset.*')
-                }
-            }
-        }
+          useDefaultListeners = true
     }
     options {
         listeners << 'org.uncommons.reportng.HTMLReporter'
